@@ -1,46 +1,30 @@
-var tempTag = document.querySelector('#temperature');
-var humidityTag = document.querySelector('#humidity');
-var timestampTag = document.querySelector('footer span');
+const tempTag = document.querySelector('#temperature');
+const humidityTag = document.querySelector('#humidity');
+const timestampTag = document.querySelector('footer span');
 
-var url = 'https://data.sparkfun.com/output/xROLbJzAlMcjwlN5dolp.json?page=1';
+const url = 'http://localhost:3000/weather';
 
-var request = new XMLHttpRequest();
+async function getWeather() {
 
-request.onload = function() {
-  if (request.status >= 200 && request.status < 400) {
-    response = JSON.parse(request.responseText);
+  let response = await fetch(url, {method: 'GET'});
 
-    var temp = response[0].temp;
-    var humidity = response[0].humidity;
-    var timestamp = response[0].timestamp;
+  if(response.ok) {
+    let weather = await response.json();
 
-    tempTag.innerHTML = 'TEMPERATURE: ' + temp + ' °C';
-    humidityTag.innerHTML = 'HUMIDITY: ' + humidity + ' %';
+    const temp = weather[0].temperature;
+    const humidity = weather[0].humidity;
+    const timestamp = weather[0].timestamp;
+  
+    tempTag.innerHTML = 'ТЕМПЕРАТУРА: ' + temp + ' °C';
+    humidityTag.innerHTML = 'ВЛАЖНОСТЬ: ' + humidity + ' %';
     timestampTag.innerHTML = moment(timestamp).fromNow();
-
-    favicon.badge(temp);
   }
-};
+  else {
+    alert('Error' + response.status);
+  }
 
-request.onerror = function() {
-  throw new Error("Can't get the data for Sparkfun");
-};
-
-
-//Favicon configuration
-var favicon = new Favico({
-  type: 'rectangle',
-  bgColor: '#E5AD62',
-  textColor: '#ff0',
-  animation: 'none',
-  fontFamily: 'Varela Round'
-});
-
-function update() {
-  // Getting the data from SparkFun API
-  request.open('GET', url, true);
-  request.send();
 }
 
-update();
-setInterval(update, 10000);
+getWeather();
+
+setInterval(getWeather, 10000);

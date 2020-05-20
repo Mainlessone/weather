@@ -18,11 +18,11 @@ html, body {
 }
 
 #temperature {
-  background-color: #E5AD62;
+  background-color: rgb(156, 156, 214);
 }
 
 #humidity {
-  background-color: #BCD09D;
+  background-color: rgb(233, 233, 97);
 }
 
 a {
