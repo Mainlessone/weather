@@ -2,7 +2,7 @@ const tempTag = document.querySelector('#temperature');
 const humidityTag = document.querySelector('#humidity');
 const timestampTag = document.querySelector('footer span');
 
-const url = 'https://weather-check.herokuapp.com/weather-hawk-api';
+const url = 'https://weather-hawk-api.herokuapp.com/weather';
 
 async function getWeather() {
 
