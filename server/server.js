@@ -15,15 +15,15 @@ app.use(bodyParser.json());
 
 mongoose.connect(db, { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true }, err=>{
     if(err) {
-        console.error('Error ' + err);
+        console.error('Ошибка ' + err);
     }
     else {
-        console.log('connected to mongo db');
+        console.log('Подключен к mongoDB');
     }
 })
 
 app.get('/', (req,res)=>{
-    res.status(201).send('Api works');
+    res.status(201).send('Api работает');
 })
 
 app.get('/weather', (req, res)=>{
@@ -37,10 +37,11 @@ app.put('/weather', (req, res)=>{
     const updatedWeather = req.body;
     
     Weather.updateOne({_id: weatherId}, updatedWeather, (err, done)=>{
+        if(err) console.log(err);
         res.status(200).send(done);
     })
 })
 
 app.listen(port, ()=>{
-    console.log('Server running at: ' + port);
+    console.log('Сервер работает на: ' + port);
 })

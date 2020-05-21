@@ -6,10 +6,10 @@ const url = 'https://weather-hawk-api.herokuapp.com/weather';
 
 async function getWeather() {
 
-  let response = await fetch(url, {method: 'GET'});
+  const response = await fetch(url, {method: 'GET'});
 
   if(response.ok) {
-    let weather = await response.json();
+    const weather = await response.json();
 
     const temp = weather[0].temperature;
     const humidity = weather[0].humidity;
@@ -20,7 +20,7 @@ async function getWeather() {
     timestampTag.innerHTML = moment(timestamp).fromNow();
   }
   else {
-    alert('Error' + response.status);
+    alert('Ошибка' + response.status);
   }
 
 }
