@@ -3,27 +3,27 @@ const dotenv = require('dotenv');
 
 dotenv.load();
 
-const lastTemp, lastHumidity;
+let prevTemp, prevHumidity;
 
 const sensor = {
-    initialize: function () {
+    initialize: () => {
         return sensorLib.initialize(11, 4);
     },
-    read: function () {
+    read: () => {
         const readout = sensorLib.read();
         
-        const temp = readout.temperature.toFixed(0);
+        const temperature = readout.temperature.toFixed(0);
         const humidity = readout.humidity.toFixed(0);
 
-        if (temp != lastTemp || humidity != lastHumidity) {
-            lastTemp = temp;
-            lastHumidity = humidity;
+        if (temp != prevTemp || humidity != prevHumidity) {
+            prevTemp = temperature;
+            prevHumidity = humidity;
 
             const url = 'https://weather-hawk-api.herokuapp.com/weather';
             const id = '5ec4f436b8f4910ce40e1be5';
 
             const newData = {
-            temperature: temp,
+            temperature: temperature,
             humidity: humidity,
             timestamp: Date.now()
             };
@@ -42,7 +42,7 @@ const sensor = {
                     console.log('Данные отправлены успешно' + result);
                 }
                 else {
-                    console.log('Ошибка при отправке данных');
+                    console.log('Ошибка при отправлении данных');
                 }
 
             }
@@ -50,7 +50,7 @@ const sensor = {
             sendsUpdatedWeather();
         }
 
-        setTimeout(function () {
+        setTimeout(() => {
             sensor.read();
         }, 2000);
     }

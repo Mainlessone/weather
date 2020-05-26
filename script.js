@@ -16,7 +16,7 @@ async function getWeather() {
     const timestamp = weather[0].timestamp;
   
     tempTag.innerHTML = 'ТЕМПЕРАТУРА: ' + temp + ' °C';
-    humidityTag.innerHTML = 'ВЛАЖНОСТЬ: ' + humidity + ' %';
+    humidityTag.innerHTML = 'ВОЛОГІСТЬ: ' + humidity + ' %';
     timestampTag.innerHTML = moment(timestamp).fromNow();
   }
   else {
