@@ -1,5 +1,6 @@
 const sensorLib = require('node-dht-sensor');
 const dotenv = require('dotenv');
+const fetch = require('node-fetch');
 
 dotenv.load();
 
